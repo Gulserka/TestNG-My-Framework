@@ -5,6 +5,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
+import org.testng.annotations.Test;
+import pages.us12.MyAccountPage;
 import utilities.Driver;
 
 import java.io.File;
@@ -22,6 +24,21 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class ReusableMethods {
 
+//    static MyAccountPage myAccountPage;
+//    @Test
+//    public static void addressesClick() {
+//
+//        myAccountPage = new MyAccountPage();
+//        ReusableMethods.waitFor(2);
+//        myAccountPage.addressButton.click();
+//    }
+
+
+public static WebDriver driver;
+    public static void scrollDownActions() {
+        new Actions(driver).sendKeys(Keys.PAGE_DOWN).perform();
+    }
+
     public static String getScreenshot(String name) throws IOException {
         // naming the screenshot with the current date to avoid duplication
         String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
@@ -35,6 +52,8 @@ public class ReusableMethods {
         FileUtils.copyFile(source, finalDestination);
         return target;
     }
+
+
 
     //========Switching Window=====//
     public static void switchToWindow(String targetTitle) {
@@ -236,5 +255,59 @@ public class ReusableMethods {
         } catch (NoSuchElementException e) {
             Assert.fail("Element not found: " + element);
         }
+    }
+
+
+    public static void takeScreenShotOfPage() throws IOException {
+//        1. Take screenshot
+        File image = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
+//       2. Save screenshot
+//        getting the current time as string to use in teh screenshot name, previous screenshots will be kept
+        String currentTime = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+
+//        Path of screenshot save folder               folder / folder    /file name
+        String path = System.getProperty("user.dir")+"/test-output/Screenshots/"+currentTime+"image.png";
+        FileUtils.copyFile(image,new File(path));
+    }
+
+    //    SCREENSHOT
+//    @params: WebElement
+//
+    public static void takeScreenshotOfElement(WebElement element) throws IOException {
+//        1. take screenshot
+        File image = element.getScreenshotAs(OutputType.FILE);
+//        2. save screenshot
+//        path
+        String currentTime = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        String path = System.getProperty("user.dir")+"/test-output/Screenshots/"+currentTime+"image.png";
+        FileUtils.copyFile(image,new File(path));
+    }
+
+    //    SCROLLINTOVIEWJS
+//    @param : WebElement
+//    Verilen webelementin uzerine kaydirir
+    public static void scrollIntoViewJS(WebElement element){
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].scrollIntoView(true);",element);
+    }
+
+    //    SAYFANIN EN ALTINA IN
+//    Bu method ile sayfanin en altina inebiliriz
+    public void scrollEndJS(){
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+
+    }
+    //    Bu metot ile sayfanin en ustune cikabiliriz
+    public void scrollTopJS(){
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+    }
+
+    //    Bu metot ile belirli bir elemente JS executor ile tiklanabilir
+    public void clickByJS(WebElement element){
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();",element);
     }
 }
