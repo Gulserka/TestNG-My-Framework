@@ -24,18 +24,10 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class ReusableMethods {
 
-//    static MyAccountPage myAccountPage;
-//    @Test
-//    public static void addressesClick() {
-//
-//        myAccountPage = new MyAccountPage();
-//        ReusableMethods.waitFor(2);
-//        myAccountPage.addressButton.click();
-//    }
-
 
 public static WebDriver driver;
     public static void scrollDownActions() {
+
         new Actions(driver).sendKeys(Keys.PAGE_DOWN).perform();
     }
 

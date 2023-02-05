@@ -17,4 +17,8 @@ public class StoreManagerPage {
     @FindBy(xpath = "(//*[text()='Add New'])[1]")
     public WebElement addNewButton;
 
+
+    @FindBy(id = "wcfm_products_manage_form_general_expander")
+    public WebElement pageScreenShotLocate;
+
 }
