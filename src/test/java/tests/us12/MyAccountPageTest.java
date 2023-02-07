@@ -46,25 +46,25 @@ public class MyAccountPageTest {
         ReusableMethods.waitFor(2);
         actions = new Actions(Driver.getDriver());
 
-     ReusableMethods.scrollIntoViewJS(billingAddressPage.billingAddressAddButton);
-//        actions.sendKeys(Keys.PAGE_DOWN).perform();
-//        actions.sendKeys(Keys.PAGE_DOWN).perform();
+        // ReusableMethods.scrollIntoViewJS(billingAddressPage.billingAddressAddButton);
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
+        ReusableMethods.waitFor(3);
         billingAddressPage.billingAddressAddButton.click();
     }
 
     @DataProvider
     public Object[][] kayitBilgileri() {
         Object[][] bilgiler = {
-                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555"},
-                {"", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555"},
-//                {"aaa", "", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555"},
-//                {"aaa", "bbb", "", "aaa", "bbb", "ccc", "35000", "5555555555"},
-//                {"aaa", "bbb", "ccc", "", "bbb", "ccc", "35000", "5555555555"},
-//                {"aaa", "bbb", "ccc", "aaa", "", "ccc", "35000", "5555555555"},
-//                {"aaa", "bbb", "ccc", "aaa", "bbb", "", "35000", "5555555555"},
-//                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "", "35000", "5555555555"},
-//                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "", "5555555555"},
-//                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", ""},
+                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555"}, //POSITIVE
+                {"", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555"}, //NEGATIVE
+                {"aaa", "", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555"},
+                {"aaa", "bbb", "", "aaa", "bbb", "ccc", "35000", "5555555555"},
+                {"aaa", "bbb", "ccc", "", "bbb", "ccc", "35000", "5555555555"},
+                {"aaa", "bbb", "ccc", "aaa", "", "ccc", "35000", "5555555555"},
+                {"aaa", "bbb", "ccc", "aaa", "bbb", "", "35000", "5555555555"},
+                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "", "35000", "5555555555"},
+                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "", "5555555555"},
+                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", ""},
         };
         return bilgiler;
     }
@@ -110,11 +110,10 @@ public class MyAccountPageTest {
 
         billingAddressPage.countryRegion.click();
         billingAddressPage.dropdown.click();
-        billingAddressPage.dropdown.sendKeys("Turkey",Keys.ENTER);
+        billingAddressPage.dropdown.sendKeys("Turkey", Keys.ENTER);
 
 
-
-       // billingAddressPage.countryRegion.sendKeys(countryRegion, Keys.ENTER);
+        // billingAddressPage.countryRegion.sendKeys(countryRegion, Keys.ENTER);
         ReusableMethods.waitFor(1);
         billingAddressPage.streetAddress.clear();
         billingAddressPage.streetAddress.sendKeys(streetAddress);
@@ -132,10 +131,10 @@ public class MyAccountPageTest {
         billingAddressPage.phone.clear();
         billingAddressPage.phone.sendKeys(phone);
         ReusableMethods.waitFor(1);
-       // billingAddressPage.province.sendKeys(province);
+        // billingAddressPage.province.sendKeys(province);
         billingAddressPage.province.click();
         billingAddressPage.province2.click();
-        billingAddressPage.province2.sendKeys("Adana",Keys.ENTER);
+        billingAddressPage.province2.sendKeys("Adana", Keys.ENTER);
 
         ReusableMethods.waitFor(3);
 
@@ -150,15 +149,98 @@ public class MyAccountPageTest {
 
     }
 
-    @Test
-    public void emailAreaIsEmpty() {
+
+
+    @DataProvider
+    public Object[][] kayitBilgileri2() {
+        Object[][] bilgiler = {
+                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555","lasean.eddrick@foundtoo.com"},
+                {"aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "35000", "5555555555",""},
+
+        };
+        return bilgiler;
+    }
+    @Test(dataProvider = "kayitBilgileri2")
+
+    public void emailTest(String firstName, String lastName, String companyName, String streetAddress,
+                                   String apartmentSuiteUnitEtc, String townCity, String post_Zip_Code, String phone, String email) throws IOException {
+
+        loginPageTest = new LoginPageTest();
+        billingAddressPage = new BillingAddressPage();
+        myAccountPage = new MyAccountPage();
+        actions = new Actions(Driver.getDriver());
+
 
         billingAddressTest();
 
+        billingAddressPage.firstName.clear();
+        billingAddressPage.firstName.sendKeys(firstName);
+        ReusableMethods.waitFor(1);
+        billingAddressPage.lastName.clear();
+        billingAddressPage.lastName.sendKeys(lastName);
+        ReusableMethods.waitFor(1);
+        billingAddressPage.companyName.clear();
+        billingAddressPage.companyName.sendKeys(companyName);
+        ReusableMethods.waitFor(3);
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
+        ReusableMethods.waitFor(2);
+
+
+        billingAddressPage.countryRegion.click();
+        billingAddressPage.dropdown.click();
+        billingAddressPage.dropdown.sendKeys("Turkey", Keys.ENTER);
+
+
+        // billingAddressPage.countryRegion.sendKeys(countryRegion, Keys.ENTER);
+        ReusableMethods.waitFor(1);
+        billingAddressPage.streetAddress.clear();
+        billingAddressPage.streetAddress.sendKeys(streetAddress);
+        ReusableMethods.waitFor(1);
+        billingAddressPage.apartmentSuiteUnitEtc.clear();
+        billingAddressPage.apartmentSuiteUnitEtc.sendKeys(apartmentSuiteUnitEtc);
+        ReusableMethods.waitFor(1);
+        billingAddressPage.townCity.clear();
+        billingAddressPage.townCity.sendKeys(townCity);
+        ReusableMethods.waitFor(1);
+        billingAddressPage.post_Zip_Code.clear();
+        // billingAddressPage.state.sendKeys(state, Keys.ENTER);
+        billingAddressPage.post_Zip_Code.sendKeys(post_Zip_Code);
+        ReusableMethods.waitFor(1);
+        billingAddressPage.phone.clear();
+        billingAddressPage.phone.sendKeys(phone);
+        ReusableMethods.waitFor(1);
+        // billingAddressPage.province.sendKeys(province);
+        billingAddressPage.province.click();
+        billingAddressPage.province2.click();
+        billingAddressPage.province2.sendKeys("Adana", Keys.ENTER);
+        ReusableMethods.waitFor(3);
+
+        String email1 = billingAddressPage.email.getText();
+        if (email1.equals(email)){
+            Assert.assertEquals(email,email1);
+            ReusableMethods.takeScreenshotOfElement(billingAddressPage.email);
+        }
+
+
+        billingAddressPage.email.clear();
+        billingAddressPage.email.sendKeys(email);
+        billingAddressPage.saveAddressButton.click();
+        ReusableMethods.waitFor(4);
+        Assert.assertTrue(myAccountPage.alert.isDisplayed());
+        ReusableMethods.takeScreenshotOfElement(myAccountPage.alert);
+        
 
 
 
 
+
+
+
+
+    }
+
+    @Test
+    public void aaa(){
 
 
     }
