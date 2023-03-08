@@ -31,6 +31,13 @@ public static WebDriver driver;
         new Actions(driver).sendKeys(Keys.PAGE_DOWN).perform();
     }
 
+
+    public static String getValueByJS(String idOfElement) {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        String text = js.executeScript("return document.getElementById('" + idOfElement + "').value").toString();
+        return text;
+
+    }
     public static String getScreenshot(String name) throws IOException {
         // naming the screenshot with the current date to avoid duplication
         String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
@@ -252,7 +259,7 @@ public static WebDriver driver;
 
     public static void takeScreenShotOfPage() throws IOException {
 //        1. Take screenshot
-        File image = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        File image = ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.FILE);
 
 //       2. Save screenshot
 //        getting the current time as string to use in teh screenshot name, previous screenshots will be kept
@@ -286,8 +293,8 @@ public static WebDriver driver;
 
     //    SAYFANIN EN ALTINA IN
 //    Bu method ile sayfanin en altina inebiliriz
-    public void scrollEndJS(){
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+    public static void scrollEndJS(){
+        JavascriptExecutor js = (JavascriptExecutor)Driver.getDriver();
         js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
 
     }

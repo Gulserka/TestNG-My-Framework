@@ -1,4 +1,4 @@
-package pages.us12;
+package pages.us13;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,8 +13,6 @@ public class ShippingAddressPage {
 
     @FindBy(xpath = "//*[@href='https://allure2you.com/my-account-2/edit-address/shipping/']")
     public WebElement shippingAddressAddButton;
-
-
     @FindBy(id = "shipping_first_name")
     public WebElement firstName;
 
@@ -26,6 +24,9 @@ public class ShippingAddressPage {
 
     @FindBy(id = "select2-shipping_country-container")
     public WebElement countryRegion;
+
+    @FindBy(xpath = "//*[@class='select2-search__field']")
+    public WebElement dropdown;
 
     @FindBy(id = "shipping_address_1")
     public WebElement streetAddress;
@@ -42,6 +43,12 @@ public class ShippingAddressPage {
     @FindBy(id = "select2-shipping_state-container")
     public WebElement state;
 
+
+    @FindBy(id = "select2-shipping_state-container")
+    public WebElement province;
+
+    @FindBy(xpath = "//*[@class='select2-search__field']")
+    public WebElement province2;
     @FindBy(name = "save_address")
     public WebElement saveAddressButton;
 

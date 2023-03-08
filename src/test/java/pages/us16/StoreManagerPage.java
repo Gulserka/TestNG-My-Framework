@@ -21,4 +21,8 @@ public class StoreManagerPage {
     @FindBy(id = "wcfm_products_manage_form_general_expander")
     public WebElement pageScreenShotLocate;
 
+
+    @FindBy(xpath = "//*[@class='wcfm_product_title']")
+    public WebElement addProductArea;
+
 }
